@@ -13,7 +13,7 @@ import xacro
 def generate_launch_description():
     # Get the path to the Gazebo world file
     package_name = 'usv_robot'
-    xacro_file_path = os.path.join(get_package_share_directory(package_name), 'urdf', 'mobile_manipulator.urdf.xacro')
+    xacro_file_path = os.path.join(get_package_share_directory(package_name), 'urdf', 'robot_description.urdf.xacro')
 
     robot_pos = ['0.0', '0.0', '0.0']
     robot_yaw = '0.0'
@@ -50,7 +50,7 @@ def generate_launch_description():
         executable='spawn_entity.py',
         arguments=[
             '-topic', 'robot_description',
-            '-entity', 'mobile_manipulator_robot',
+            '-entity', 'block',
             '-x', robot_pos[0], '-y', robot_pos[1], '-z', robot_pos[2], '-Y', robot_yaw
         ],
         output='screen'

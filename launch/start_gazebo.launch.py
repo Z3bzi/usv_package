@@ -7,8 +7,8 @@ from launch.actions import DeclareLaunchArgument, ExecuteProcess
 from launch.substitutions import LaunchConfiguration
 
 from launch_ros.actions import Node
-import xacro
 
+world_file_path = '/home/rocotics/ros2_ws/src/usv_package/worlds/usv_ocean.world'
 
 def generate_launch_description():
     # Declaring use_sim_time as a launch argument that can then be used in all launch files
@@ -21,7 +21,7 @@ def generate_launch_description():
     #Starting Gazebo
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(get_package_share_directory('gazebo_ros'), 'launch'), '/gazebo.launch.py']),
-        # launch_arguments={'world': world_file_path}.items()
+        launch_arguments={'world': world_file_path}.items()
     )
 
     return LaunchDescription([

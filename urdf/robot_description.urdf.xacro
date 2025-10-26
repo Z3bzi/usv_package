@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <robot name="block" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <!-- Masseløs root for å unngå KDL-advarsel -->
+  <link name="DUMMY"/>
+
+  <!-- Kropp med masse/inerti -->
   <link name="block_link">
     <inertial>
-      <mass value="1.0"/>
+      <mass value="60"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.01" iyy="0.01" izz="0.01" ixy="0" ixz="0" iyz="0"/>
     </inertial>
@@ -20,16 +24,33 @@
     </collision>
   </link>
 
-  <link name="DUMMY"/>
-
+  <!-- Root = DUMMY -> block_link -->
   <joint name="dummy_to_block" type="fixed">
-    <parent link="block_link"/>
-    <child link="DUMMY"/>
+    <parent link="DUMMY"/>
+    <child  link="block_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
+  <!-- Link-spesifikke Gazebo-parametre -->
   <gazebo reference="block_link">
-    <mu1>0.5</mu1><mu2>0.5</mu2><kp>100000</kp><kd>1</kd>
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>100000</kp>
+    <kd>1</kd>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="buoyancy" filename="libbuoyancy_plugin.so">
+      <fluid_density>1250</fluid_density>
+      <surface_z>0.0</surface_z>
+      <link name="block_link">
+        <waterplane_area>2</waterplane_area>
+        <height>0.4</height>
+        <linear_damping>5.0</linear_damping>
+        <angular_damping>1.0</angular_damping>
+        <k_righting>50.0</k_righting>
+      </link>
+    </plugin>
   </gazebo>
 
 </robot>
