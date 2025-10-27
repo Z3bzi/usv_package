@@ -21,7 +21,7 @@ def generate_launch_description():
 
     #Robot starting position and orientation
     robot_pos = ['0.0', '0.0', '0.0']
-    robot_yaw = '3.1415'
+    robot_yaw = '0.0'
 
     #Transform the xacro file into an xml description
     robot_description_raw = xacro.process_file(xacro_file_path).toxml()
