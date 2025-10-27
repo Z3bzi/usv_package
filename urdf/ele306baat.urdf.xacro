@@ -78,53 +78,84 @@
     </collision>
   </link>
 
-  <joint name="thr_left_fixed" type="fixed">
+  <!-- VENSTRE: yaw rundt z, plassert ved (0, +y_off, 0) -->
+  <joint name="thr_left_yaw" type="revolute">
     <parent link="base_link"/>
     <child  link="thr_left"/>
     <origin xyz="0 ${y_off} 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>                       <!-- yaw-akse -->
+    <limit lower="-1.5708" upper="1.5708" effort="15.0" velocity="2.5"/>  
+    <dynamics damping="0.5" friction="0.1"/>
   </joint>
 
-  <joint name="thr_right_fixed" type="fixed">
+  <!-- HØYRE: yaw rundt z, plassert ved (0, -y_off, 0) -->
+  <joint name="thr_right_yaw" type="revolute">
     <parent link="base_link"/>
     <child  link="thr_right"/>
     <origin xyz="0 ${-y_off} 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.5708" upper="1.5708"
+          effort="15.0" velocity="2.5"/>
+    <dynamics damping="0.5" friction="0.1"/>
   </joint>
 
   <!-- Gazebo-tillegg: la Gazebo finne plugin via GAZEBO_PLUGIN_PATH -->
   <gazebo>
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+
+
     <plugin name="buoyancy" filename="libbuoyancy_plugin.so">
       <fluid_density>1000</fluid_density>
       <surface_z>0.0</surface_z>
       <link name="base_link">
         <waterplane_area>1</waterplane_area>
-        <height>0.2</height>
+        <height>0.25</height>
         <linear_damping>60.0</linear_damping>
-        <angular_damping>10.0</angular_damping>
+        <angular_damping>20.0</angular_damping>
         <k_righting>50.0</k_righting>
         <cob>
-          <x>0</x><y>0</y><z>-0.05</z>
+          <x>0</x><y>0</y><z>-0.01</z>
         </cob>
       </link>
     </plugin>
 
-
-    <!-- VENSTRE -->
-    <plugin name="thr_left_force" filename="libgazebo_ros_force.so">
+  <plugin name="thr_left_force" filename="libgazebo_ros_force.so">
     <ros>
       <namespace>/usv</namespace>
-      <remapping>~/force:=/usv/left_thrust</remapping>
+      <remapping>gazebo_ros_force:=/usv/left_thrust</remapping>
     </ros>
-    <body_name>thr_left</body_name>
-    </plugin>
-    
+    <link_name>thr_left</link_name>
+    <force_frame>link</force_frame>   <!-- kraft i thruster-linkens ramme -->
+  </plugin>
 
-    <!-- HØYRE -->
-    <plugin name="thr_right_force" filename="libgazebo_ros_force.so">
-      <ros>
-        <namespace>/usv</namespace>
-        <remapping>~/force:=/usv/right_thrust</remapping>
-      </ros>
-      <body_name>thr_right</body_name>
-    </plugin>
+  <plugin name="thr_right_force" filename="libgazebo_ros_force.so">
+    <ros>
+      <namespace>/usv</namespace>
+      <remapping>gazebo_ros_force:=/usv/right_thrust</remapping>
+    </ros>
+    <link_name>thr_right</link_name>
+    <force_frame>link</force_frame>
+  </plugin>
+
   </gazebo>
+
+
+  <ros2_control name="usv_hw" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/DefaultSystem</plugin>
+    </hardware>
+
+    <!-- Vi styrer yaw-posisjon på begge -->
+    <joint name="thr_left_yaw">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+      <state_interface   name="velocity"/>
+    </joint>
+    <joint name="thr_right_yaw">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+      <state_interface   name="velocity"/>
+    </joint>
+  </ros2_control>
+
 </robot>

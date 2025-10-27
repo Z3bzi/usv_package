@@ -15,7 +15,6 @@ setup(
         (os.path.join('share', package_name, 'urdf'), glob(os.path.join('urdf', '*.xacro'))),
         (os.path.join('share', package_name, 'meshes'), glob(os.path.join('meshes', '*.stl'))),
         (os.path.join('share', package_name, 'worlds'),glob(os.path.join('worlds', '*.world'))),
-        
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -26,7 +25,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'reload_robot_model = usv_package.reload_robot_model:main' 
-        ],
+            'reload_robot_model = usv_package.reload_robot_model:main',
+            'thruster_mixer = usv_package.thruster_mixer:main',
+            ],
     },
 )

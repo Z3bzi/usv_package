@@ -66,10 +66,25 @@ def generate_launch_description():
             parameters=[
                 {'xacro_file_path': xacro_file_path}
             ])
+    
+    mixer = Node(
+    package='usv_package',
+    executable='thruster_mixer',
+    name='thruster_mixer',
+    parameters=[{
+        'max_thrust': 20.0,            # N per thruster
+        'turn_mix': 1.0,               # 0.8–1.2 er ofte fint
+        'left_topic': '/usv/left_thrust',
+        'right_topic': '/usv/right_thrust',
+        'use_wrench': True             # plugin forventer geometry_msgs/Wrench
+    }],
+    output='screen'
+)
 
     return LaunchDescription([
         sim_time_arg,
         node_robot_state_publisher,
         spawn_entity,
+        mixer,
         reset_robot_node
     ])
