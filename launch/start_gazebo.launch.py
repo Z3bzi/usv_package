@@ -8,6 +8,8 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 world_path = os.path.join(get_package_share_directory('usv_package'), 'worlds', 'usv_ocean.world')
 
 def generate_launch_description():
+    # Disable remote model database lookups to avoid blocking when offline
+    disable_model_db = SetEnvironmentVariable(name='GAZEBO_MODEL_DATABASE_URI', value='')
     # Ensure Gazebo can find locally built buoyancy plugin
     try:
         buoy_share = get_package_share_directory('buoyancy_plugin')
@@ -32,7 +34,7 @@ def generate_launch_description():
         launch_arguments={'world': world_path, 'verbose': 'true'}.items()
     )
 
-    actions = [sim_time_arg]
+    actions = [sim_time_arg, disable_model_db]
     if gazebo_plugin_env:
         actions.append(gazebo_plugin_env)
     actions.append(gazebo)

@@ -17,7 +17,7 @@ def generate_launch_description():
     
     # Define location of the xacro file that describes the robot model
     # xacro_file_path = os.path.join(get_package_share_directory(package_name), 'urdf', 'mobile_manipulator.urdf.xacro')
-    xacro_file_path = "/home/rocotics/ros2_ws/src/usv_package/urdf/robot_description.urdf.xacro"
+    xacro_file_path = "/home/rocotics/ros2_ws/src/usv_package/urdf/ele306baat.urdf.xacro"
 
     #Robot starting position and orientation
     robot_pos = ['0.0', '0.0', '0.0']
