@@ -43,7 +43,7 @@ def generate_launch_description():
             'robot_description': robot_description_raw,
             'use_sim_time': use_sim_time
         }]
-    )#ddd
+    )#test
 
     spawn_entity = Node(
         package='gazebo_ros', 
