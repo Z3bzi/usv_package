@@ -21,8 +21,9 @@ class KeyboardNode(Node):
 
         self.key_k = False
         self.robot_reseting = False
-        self.robot_name = "mobile_manipulator"
+        self.robot_name = "block"
         self.robot_init_pose = Pose()
+        self.robot_init_pose.position.z = 0.2
 
         # self.max_linear_vel = 0.5
         # self.max_angular_vel = 1.0
