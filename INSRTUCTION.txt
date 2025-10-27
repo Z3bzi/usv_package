@@ -1,5 +1,0 @@
-båten kan kjøre med
-
-ros2 topic pub /usv/left_thrust geometry_msgs/Wrench   "{force: {x: -10.0, y: 0.0, z: 0.0}, torque: {x: 0.0, y: 0.0, z: 0.0}}"
-
-ros2 topic pub /usv/right_thrust geometry_msgs/Wrench   "{force: {x: -10.0, y: 0.0, z: 0.0}, torque: {x: 0.0, y: 0.0, z: 0.0}}"

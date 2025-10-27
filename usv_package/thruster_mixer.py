@@ -15,7 +15,7 @@ class ThrusterMixer(Node):
         self.declare_parameter('turn_mix', 1.0)        # hvor “aggressiv” turning er (1.0 = klassisk miks)
         self.declare_parameter('left_topic', '/usv/left_thrust')
         self.declare_parameter('right_topic', '/usv/right_thrust')
-        self.declare_parameter('use_wrench', False)    # sett True hvis plugin vil ha Wrench
+        self.declare_parameter('use_wrench', True)    # sett True hvis plugin vil ha Wrench
 
         self.max_thrust = float(self.get_parameter('max_thrust').value)
         self.turn_mix   = float(self.get_parameter('turn_mix').value)
