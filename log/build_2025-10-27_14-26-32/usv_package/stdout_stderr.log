@@ -1,0 +1,20 @@
+running egg_info
+writing build/usv_package/usv_package.egg-info/PKG-INFO
+writing dependency_links to build/usv_package/usv_package.egg-info/dependency_links.txt
+writing entry points to build/usv_package/usv_package.egg-info/entry_points.txt
+writing requirements to build/usv_package/usv_package.egg-info/requires.txt
+writing top-level names to build/usv_package/usv_package.egg-info/top_level.txt
+reading manifest file 'build/usv_package/usv_package.egg-info/SOURCES.txt'
+writing manifest file 'build/usv_package/usv_package.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package-0.0.0-py3.8.egg-info' (and everything under it)
+Copying build/usv_package/usv_package.egg-info to /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package-0.0.0-py3.8.egg-info
+running install_scripts
+Installing reload_robot_model script to /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/usv_package
+Installing thruster_mixer script to /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/usv_package
+writing list of installed files to '/home/rocotics/ros2_ws/src/usv_package/build/usv_package/install.log'
