@@ -1,12 +1,13 @@
+/home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package/thruster_mixer.py
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package/reload_robot_model.py
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package/__init__.py
+/home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package/__pycache__/thruster_mixer.cpython-38.pyc
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package/__pycache__/reload_robot_model.cpython-38.pyc
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package/__pycache__/__init__.cpython-38.pyc
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/ament_index/resource_index/packages/usv_package
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/package.xml
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch/mobile_manipulator.launch.py
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch/robot_spawn.launch.py
-/home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch/auto_spawn.launch.py
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch/start_gazebo.launch.py
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/urdf/ele306baat.urdf.xacro
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/urdf/robot_description.urdf.xacro
@@ -29,3 +30,4 @@
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package-0.0.0-py3.8.egg-info/top_level.txt
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package-0.0.0-py3.8.egg-info/requires.txt
 /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/usv_package/reload_robot_model
+/home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/usv_package/thruster_mixer

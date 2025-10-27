@@ -1,0 +1,28 @@
+[0.800s] Invoking command in '/home/rocotics/ros2_ws/src/usv_package': PYTHONPATH=/home/rocotics/ros2_ws/src/usv_package/build/usv_package/prefix_override:/home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/usv_package build --build-base /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build install --record /home/rocotics/ros2_ws/src/usv_package/build/usv_package/install.log --install-scripts $base/lib/usv_package --single-version-externally-managed
+[1.014s] running egg_info
+[1.014s] writing build/usv_package/usv_package.egg-info/PKG-INFO
+[1.015s] writing dependency_links to build/usv_package/usv_package.egg-info/dependency_links.txt
+[1.015s] writing entry points to build/usv_package/usv_package.egg-info/entry_points.txt
+[1.015s] writing requirements to build/usv_package/usv_package.egg-info/requires.txt
+[1.016s] writing top-level names to build/usv_package/usv_package.egg-info/top_level.txt
+[1.055s] reading manifest file 'build/usv_package/usv_package.egg-info/SOURCES.txt'
+[1.056s] writing manifest file 'build/usv_package/usv_package.egg-info/SOURCES.txt'
+[1.056s] running build
+[1.056s] running build_py
+[1.056s] copying usv_package/thruster_mixer.py -> /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build/lib/usv_package
+[1.057s] running install
+[1.059s] running install_lib
+[1.060s] copying /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build/lib/usv_package/thruster_mixer.py -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package
+[1.061s] byte-compiling /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package/thruster_mixer.py to thruster_mixer.cpython-38.pyc
+[1.063s] running install_data
+[1.063s] copying package.xml -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package
+[1.063s] copying launch/robot_spawn.launch.py -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch
+[1.063s] copying urdf/ele306baat.urdf.xacro -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/urdf
+[1.064s] running install_egg_info
+[1.067s] removing '/home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package-0.0.0-py3.8.egg-info' (and everything under it)
+[1.070s] Copying build/usv_package/usv_package.egg-info to /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package-0.0.0-py3.8.egg-info
+[1.072s] running install_scripts
+[1.085s] Installing reload_robot_model script to /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/usv_package
+[1.086s] Installing thruster_mixer script to /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/usv_package
+[1.086s] writing list of installed files to '/home/rocotics/ros2_ws/src/usv_package/build/usv_package/install.log'
+[1.104s] Invoked command in '/home/rocotics/ros2_ws/src/usv_package' returned '0': PYTHONPATH=/home/rocotics/ros2_ws/src/usv_package/build/usv_package/prefix_override:/home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/usv_package build --build-base /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build install --record /home/rocotics/ros2_ws/src/usv_package/build/usv_package/install.log --install-scripts $base/lib/usv_package --single-version-externally-managed

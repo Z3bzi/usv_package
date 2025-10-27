@@ -8,7 +8,6 @@ build/usv_package/usv_package.egg-info/entry_points.txt
 build/usv_package/usv_package.egg-info/requires.txt
 build/usv_package/usv_package.egg-info/top_level.txt
 build/usv_package/usv_package.egg-info/zip-safe
-launch/auto_spawn.launch.py
 launch/mobile_manipulator.launch.py
 launch/robot_spawn.launch.py
 launch/start_gazebo.launch.py
@@ -30,4 +29,5 @@ urdf/ele306baat.urdf.xacro
 urdf/robot_description.urdf.xacro
 usv_package/__init__.py
 usv_package/reload_robot_model.py
+usv_package/thruster_mixer.py
 worlds/usv_ocean.world
