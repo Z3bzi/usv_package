@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="ele306baat">
+    <link name="base_link">
+        <inertial>
+            <origin xyz="-0.5552386532467776 0.19999999999999993 0.09853724397359867" rpy="0.0 0.0 0.0" />
+            <mass value="30" />
+            <inertia ixx="6.19751676834202" iyy="31.207900541600267" izz="34.91016063035846" ixy="-7.105427357601002e-15" iyz="-2.6645352591003757e-15" ixz="1.0508686428543967" />
+        </inertial>
+        <visual name="base_link_visual">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="$(find usv_package)/meshes/base_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+        </visual>
+        <collision name="base_link_collision">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="$(find usv_package)/meshes/base_link.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo>
+        <plugin name="buoyancy" filename="/home/rocotics/ros2_ws/install/buoyancy_plugin/lib/libbuoyancy_plugin.so">
+        <fluid_density>1000</fluid_density>
+        <surface_z>0.0</surface_z>
+        <link name="base_link">
+            <waterplane_area>0.4</waterplane_area>
+            <height>0.2</height>
+            <linear_damping>60.0</linear_damping>
+            <angular_damping>10.0</angular_damping>
+            <k_ righting>50.0</k_righting>
+            <cob>
+            <x>0</x>
+            <y>0</y>
+            <z>-0.05</z>
+            </cob>
+        </link>
+        </plugin>
+    </gazebo>
+</robot>
