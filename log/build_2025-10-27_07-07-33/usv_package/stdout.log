@@ -1,0 +1,56 @@
+running egg_info
+creating build/usv_package/usv_package.egg-info
+writing build/usv_package/usv_package.egg-info/PKG-INFO
+writing dependency_links to build/usv_package/usv_package.egg-info/dependency_links.txt
+writing entry points to build/usv_package/usv_package.egg-info/entry_points.txt
+writing requirements to build/usv_package/usv_package.egg-info/requires.txt
+writing top-level names to build/usv_package/usv_package.egg-info/top_level.txt
+writing manifest file 'build/usv_package/usv_package.egg-info/SOURCES.txt'
+reading manifest file 'build/usv_package/usv_package.egg-info/SOURCES.txt'
+writing manifest file 'build/usv_package/usv_package.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build
+creating /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build/lib
+creating /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build/lib/usv_package
+copying usv_package/reload_robot_model.py -> /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build/lib/usv_package
+copying usv_package/__init__.py -> /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build/lib/usv_package
+running install
+running install_lib
+creating /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package
+copying /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build/lib/usv_package/reload_robot_model.py -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package
+copying /home/rocotics/ros2_ws/src/usv_package/build/usv_package/build/lib/usv_package/__init__.py -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package
+byte-compiling /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package/reload_robot_model.py to reload_robot_model.cpython-38.pyc
+byte-compiling /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package/__init__.py to __init__.cpython-38.pyc
+running install_data
+creating /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/ament_index
+creating /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/ament_index/resource_index
+creating /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/ament_index/resource_index/packages
+copying resource/usv_package -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/ament_index/resource_index/packages
+copying package.xml -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package
+creating /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch
+copying launch/mobile_manipulator.launch.py -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch
+copying launch/robot_spawn.launch.py -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch
+copying launch/auto_spawn.launch.py -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch
+copying launch/start_gazebo.launch.py -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/launch
+creating /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/urdf
+copying urdf/ele306baat.urdf.xacro -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/urdf
+copying urdf/robot_description.urdf.xacro -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/urdf
+copying urdf/common_macros.xacro -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/urdf
+creating /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+copying meshes/base_mesh.stl -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+copying meshes/link_2_mesh.stl -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+copying meshes/wheel_mesh.stl -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+copying meshes/arm_base_mesh.stl -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+copying meshes/base_link.stl -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+copying meshes/gripper_base_mesh.stl -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+copying meshes/link_1_mesh.stl -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+copying meshes/gripper_finger_mesh.stl -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+copying meshes/link_3_mesh.stl -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/meshes
+creating /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/worlds
+copying worlds/usv_ocean.world -> /home/rocotics/ros2_ws/src/usv_package/install/usv_package/share/usv_package/worlds
+running install_egg_info
+Copying build/usv_package/usv_package.egg-info to /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/python3.8/site-packages/usv_package-0.0.0-py3.8.egg-info
+running install_scripts
+Installing reload_robot_model script to /home/rocotics/ros2_ws/src/usv_package/install/usv_package/lib/usv_package
+writing list of installed files to '/home/rocotics/ros2_ws/src/usv_package/build/usv_package/install.log'

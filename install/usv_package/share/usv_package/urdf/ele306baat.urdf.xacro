@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot name="ele306baat" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Xacro-parametre (i meter og kg) -->
+    <xacro:property name="m" value="30"/>
+    <xacro:property name="a" value="1.0"/>  <!-- lengde -->
+    <xacro:property name="b" value="0.4"/>  <!-- bredde -->
+    <xacro:property name="c" value="0.2"/>  <!-- høyde -->
+    <xacro:property name="ox" value="0.5"/>  <!-- a/2 -->
+    <xacro:property name="oy" value="-0.2"/>  <!-- b/2 -->
+    <xacro:property name="oz" value="-0.1"/>  <!-- c/2 -->
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${m}"/>
+      <inertia
+        ixx="${(1.0/12.0)*m*(b*b + c*c)}"
+        iyy="${(1.0/12.0)*m*(a*a + c*c)}"
+        izz="${(1.0/12.0)*m*(a*a + b*b)}"
+        ixy="0" iyz="0" ixz="0"/>
+    </inertial>
+
+    <visual name="base_link_visual">
+      <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+      <geometry>
+        <!-- bruk package:// i ROS 2 -->
+        <mesh filename="$(find usv_package)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+
+    <collision name="base_link_collision">
+      <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Gazebo-tillegg: la Gazebo finne plugin via GAZEBO_PLUGIN_PATH -->
+  <gazebo>
+    <plugin name="buoyancy" filename="libbuoyancy_plugin.so">
+      <fluid_density>1000</fluid_density>
+      <surface_z>0.0</surface_z>
+      <link name="base_link">
+        <waterplane_area>0.4</waterplane_area>
+        <height>0.2</height>
+        <linear_damping>60.0</linear_damping>
+        <angular_damping>10.0</angular_damping>
+        <k_righting>50.0</k_righting>
+        <cob>
+          <x>0</x><y>0</y><z>-0.05</z>
+        </cob>
+      </link>
+    </plugin>
+  </gazebo>
+</robot>
