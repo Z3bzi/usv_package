@@ -9,7 +9,11 @@
     <xacro:property name="ox" value="0.5"/>  <!-- a/2 -->
     <xacro:property name="oy" value="-0.2"/>  <!-- b/2 -->
     <xacro:property name="oz" value="-0.1"/>  <!-- c/2 -->
-
+    <xacro:property name="y_off" value="0.22"/>  <!-- avstand sidelengs fra CoM (m) -->
+    <xacro:property name="thr_r" value="0.05"/>  <!-- radius på thruster-visual -->
+    <xacro:property name="thr_l" value="0.06"/>  <!-- lengde på thruster-visual -->
+    <xacro:property name="thr_m" value="0.001"/> <!-- liten masse -->
+  
   <link name="base_link">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -37,13 +41,62 @@
     </collision>
   </link>
 
+  <!-- VENSTRE THRUSTER (y>0) -->
+  <link name="thr_left">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${thr_m}"/>
+      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+    <visual>
+      <!-- URDF-sylinder peker langs z; roter til x -->
+      <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
+      <geometry><cylinder radius="${thr_r}" length="${thr_l}"/></geometry>
+      <material name="thr_black"><color rgba="0.1 0.1 0.1 1.0"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
+      <geometry><cylinder radius="${thr_r}" length="${thr_l}"/></geometry>
+    </collision>
+  </link>
+
+  <!-- HØYRE THRUSTER (y<0) -->
+  <link name="thr_right">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${thr_m}"/>
+      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
+      <geometry><cylinder radius="${thr_r}" length="${thr_l}"/></geometry>
+      <material name="thr_black"><color rgba="0.1 0.1 0.1 1.0"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
+      <geometry><cylinder radius="${thr_r}" length="${thr_l}"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="thr_left_fixed" type="fixed">
+    <parent link="base_link"/>
+    <child  link="thr_left"/>
+    <origin xyz="0 ${y_off} 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="thr_right_fixed" type="fixed">
+    <parent link="base_link"/>
+    <child  link="thr_right"/>
+    <origin xyz="0 ${-y_off} 0" rpy="0 0 0"/>
+  </joint>
+
   <!-- Gazebo-tillegg: la Gazebo finne plugin via GAZEBO_PLUGIN_PATH -->
   <gazebo>
     <plugin name="buoyancy" filename="libbuoyancy_plugin.so">
       <fluid_density>1000</fluid_density>
       <surface_z>0.0</surface_z>
       <link name="base_link">
-        <waterplane_area>0.4</waterplane_area>
+        <waterplane_area>1</waterplane_area>
         <height>0.2</height>
         <linear_damping>60.0</linear_damping>
         <angular_damping>10.0</angular_damping>
@@ -52,6 +105,26 @@
           <x>0</x><y>0</y><z>-0.05</z>
         </cob>
       </link>
+    </plugin>
+
+
+    <!-- VENSTRE -->
+    <plugin name="thr_left_force" filename="libgazebo_ros_force.so">
+    <ros>
+      <namespace>/usv</namespace>
+      <remapping>~/force:=/usv/left_thrust</remapping>
+    </ros>
+    <body_name>thr_left</body_name>
+    </plugin>
+    
+
+    <!-- HØYRE -->
+    <plugin name="thr_right_force" filename="libgazebo_ros_force.so">
+      <ros>
+        <namespace>/usv</namespace>
+        <remapping>~/force:=/usv/right_thrust</remapping>
+      </ros>
+      <body_name>thr_right</body_name>
     </plugin>
   </gazebo>
 </robot>
