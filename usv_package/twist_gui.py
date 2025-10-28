@@ -16,8 +16,8 @@ class TwistGui:
 
         self.linear = Scale(
             self.root,
-            from_=-1.0,
-            to=1.0,
+            from_=-5.0,
+            to=5.0,
             resolution=0.01,
             orient=HORIZONTAL,
             label='Linear X',
@@ -25,8 +25,8 @@ class TwistGui:
         )
         self.angular = Scale(
             self.root,
-            from_=-1.0,
-            to=1.0,
+            from_=-2.0,
+            to=2.0,
             resolution=0.01,
             orient=HORIZONTAL,
             label='Angular Z',
