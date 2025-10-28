@@ -32,6 +32,7 @@ def generate_launch_description():
         default_value='true',
         description='Use simulation (Gazebo) clock if true'
     )
+    
     # Get launch argument use_sim_time as a launch configuration object
     use_sim_time = LaunchConfiguration('use_sim_time')
 
@@ -79,7 +80,7 @@ def generate_launch_description():
         'use_wrench': True             # plugin forventer geometry_msgs/Wrench
     }],
     output='screen'
-)
+    )
 
     return LaunchDescription([
         sim_time_arg,
