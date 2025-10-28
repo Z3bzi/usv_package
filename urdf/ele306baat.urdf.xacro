@@ -16,7 +16,7 @@
   
   <link name="base_link">
     <inertial>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/>
       <mass value="${m}"/>
       <inertia
         ixx="${(1.0/12.0)*m*(b*b + c*c)}"
@@ -82,21 +82,21 @@
   <joint name="thr_left_yaw" type="revolute">
     <parent link="base_link"/>
     <child  link="thr_left"/>
-    <origin xyz="0 ${y_off} 0" rpy="0 0 0"/>
+    <origin xyz="0 ${y_off} -0.1" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>                       <!-- yaw-akse -->
     <limit lower="-1.5708" upper="1.5708" effort="15.0" velocity="2.5"/>  
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="1" friction="10"/>
   </joint>
 
   <!-- HØYRE: yaw rundt z, plassert ved (0, -y_off, 0) -->
   <joint name="thr_right_yaw" type="revolute">
     <parent link="base_link"/>
     <child  link="thr_right"/>
-    <origin xyz="0 ${-y_off} 0" rpy="0 0 0"/>
+    <origin xyz="0 ${-y_off} -0.1" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
     <limit lower="-1.5708" upper="1.5708"
           effort="15.0" velocity="2.5"/>
-    <dynamics damping="0.5" friction="0.1"/>
+    <dynamics damping="1" friction="10"/>
   </joint>
 
   <!-- Gazebo-tillegg: la Gazebo finne plugin via GAZEBO_PLUGIN_PATH -->
@@ -108,13 +108,13 @@
       <fluid_density>1000</fluid_density>
       <surface_z>0.0</surface_z>
       <link name="base_link">
-        <waterplane_area>1</waterplane_area>
-        <height>0.25</height>
-        <linear_damping>60.0</linear_damping>
-        <angular_damping>20.0</angular_damping>
+        <waterplane_area>0.4</waterplane_area>
+        <height>0.2</height>
+        <linear_damping>30.0</linear_damping>
+        <angular_damping>30.0</angular_damping>
         <k_righting>50.0</k_righting>
         <cob>
-          <x>0</x><y>0</y><z>-0.01</z>
+          <x>0</x><y>0</y><z>0.13</z>
         </cob>
       </link>
     </plugin>

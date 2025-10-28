@@ -25,7 +25,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'reload_robot_model = usv_package.reload_robot_model:main',
             'thruster_mixer = usv_package.thruster_mixer:main',
             'twist_gui = usv_package.twist_gui:main',
             ],

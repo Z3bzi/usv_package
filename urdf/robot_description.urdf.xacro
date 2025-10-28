@@ -8,7 +8,7 @@
   <link name="block_link">
     <inertial>
       <mass value="30.0"/>
-      <origin xyz="0 0 0"/>
+      <origin xyz="0 0 -0.2"/>
       <!-- Boks 1x0.4x0.2 m, m=80 kg, CoM i origo:
            Ixx = 1/12*m*(0.4^2+0.2^2) = 1.3333
            Iyy = 1/12*m*(1.0^2+0.2^2) = 6.9333
@@ -41,14 +41,14 @@
       <surface_z>0.0</surface_z>
       <link name="DUMMY">
         <waterplane_area>0.4</waterplane_area>
-        <height>0.2</height>
+        <height>0.3</height>
         <linear_damping>60.0</linear_damping>
-        <angular_damping>10.0</angular_damping>
+        <angular_damping>15.0</angular_damping>
         <k_righting>50.0</k_righting>
         <cob>
           <x>0</x>
           <y>0</y>
-          <z>-0.05</z>
+          <z>-0.01</z>
         </cob>
       </link>
     </plugin>
