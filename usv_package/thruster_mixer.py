@@ -53,13 +53,13 @@ class ThrusterMixer(Node):
         right_N = right_cmd * self.max_thrust
 
         if self.use_wrench:
-            wl = Wrench(); wl.force.x = left_N
-            wr = Wrench(); wr.force.x = right_N
+            wl = Wrench(); wl.force.x = -left_N
+            wr = Wrench(); wr.force.x = -right_N
             self.pub_left.publish(wl)
             self.pub_right.publish(wr)
         else:
-            vl = Vector3(); vl.x = left_N
-            vr = Vector3(); vr.x = right_N
+            vl = Vector3(); vl.x = -left_N
+            vr = Vector3(); vr.x = -right_N
             self.pub_left.publish(vl)
             self.pub_right.publish(vr)
 
