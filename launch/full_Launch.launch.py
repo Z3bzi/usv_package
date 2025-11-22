@@ -42,7 +42,7 @@ def generate_launch_description():
     )
 
     # 5) Prosesser xacro → URDF
-    xacro_file_path = os.path.join(get_package_share_directory(package_name), 'urdf', 'ele306baat_V2.urdf.xacro')
+    xacro_file_path = os.path.join(get_package_share_directory(package_name), 'urdf', 'ele306baat_V3.urdf.xacro')
     robot_description_raw = xacro.process_file(xacro_file_path).toxml()
 
     # 6) Robot state publisher
