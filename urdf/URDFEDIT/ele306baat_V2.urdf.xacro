@@ -49,16 +49,6 @@
       <mass value="${thr_m}"/>
       <inertia ixx="1e-6" iyy="1e-6" izz="1e-6" ixy="0" ixz="0" iyz="0"/>
     </inertial>
-    <visual>
-      <!-- URDF-sylinder peker langs z; roter til x -->
-      <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
-      <geometry>
-        <cylinder radius="${thr_r}" length="${thr_l}"/>
-      </geometry>
-      <material name="thr_black">
-        <color rgba="0.1 0.1 0.1 1.0"/>
-      </material>
-    </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
       <geometry>
@@ -74,15 +64,6 @@
       <mass value="${thr_m}"/>
       <inertia ixx="1e-6" iyy="1e-6" izz="1e-6" ixy="0" ixz="0" iyz="0"/>
     </inertial>
-    <visual>
-      <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
-      <geometry>
-        <cylinder radius="${thr_r}" length="${thr_l}"/>
-      </geometry>
-      <material name="thr_black">
-        <color rgba="0.1 0.1 0.1 1.0"/>
-      </material>
-    </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
       <geometry>
@@ -95,7 +76,7 @@
   <joint name="thr_left_yaw" type="revolute">
     <parent link="base_link"/>
     <child  link="thr_left"/>
-    <origin xyz="0 ${y_off} -0.1" rpy="0 0 0"/>
+    <origin xyz="0 ${y_off} -0.08" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>                       <!-- yaw-akse -->
     <limit lower="-1.5708" upper="1.5708" effort="15.0" velocity="2.5"/>
     <dynamics damping="1" friction="10"/>
@@ -105,7 +86,7 @@
   <joint name="thr_right_yaw" type="revolute">
     <parent link="base_link"/>
     <child  link="thr_right"/>
-    <origin xyz="0 ${-y_off} -0.1" rpy="0 0 0"/>
+    <origin xyz="0 ${-y_off} -0.08" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
     <limit lower="-1.5708" upper="1.5708" effort="15.0" velocity="2.5"/>
     <dynamics damping="1" friction="10"/>
@@ -186,7 +167,7 @@
                ixy="3.9887786443593526e-07" iyz="-0.0024238492062195094" ixz="-2.9928866193076637e-09"/>
     </inertial>
     <visual name="5DOF_V2-v1_Ledd1-v1_visual">
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.0 -0.03 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="5DOF_V2-v1_Ledd1-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -207,13 +188,13 @@
                ixy="-1.0873018443745157e-08" iyz="-0.0015209339212538377" ixz="-2.6955421273972656e-09"/>
     </inertial>
     <visual name="5DOF_V2-v1_Ledd2-v1_visual">
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.0 -0.03 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="5DOF_V2-v1_Ledd2-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_Ledd2-v1_collision">
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.0 -0.03 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="5DOF_V2-v1_Ledd2-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -228,13 +209,13 @@
                ixy="1.2510862322193676e-18" iyz="-1.9775176354292115e-20" ixz="-1.1469673138770481e-17"/>
     </inertial>
     <visual name="5DOF_V2-v1_Ledd-4-v1_visual">
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="-0.02 0.02 -0.02" rpy="1.5708 0.0 0.0"/>
       <geometry>
         <mesh filename="5DOF_V2-v1_Ledd-4-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_Ledd-4-v1_collision">
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0.0 0.0 0.0" rpy="1.5708 0.0 0.0"/>
       <geometry>
         <mesh filename="5DOF_V2-v1_Ledd-4-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -310,7 +291,7 @@
   </joint>
 
   <joint name="5DOF_V2-v1_Base_tube-v1_Revolute-13" type="continuous">
-    <origin xyz="0 -0.03 0.08"
+    <origin xyz="0. 0 0.12"
             rpy="0 3.14 1.5708"/>
     <parent link="5DOF_V2-v1_Base_tube-v1"/>
     <child  link="5DOF_V2-v1_Ledd1-v1"/>
@@ -318,35 +299,35 @@
   </joint>
 
   <joint name="5DOF_V2-v1_Ledd1-v1_Revolute-4" type="continuous">
-    <origin xyz="-9.16609224077547e-10 0.37999999999999307 0.07499999504391575"
-            rpy="-1.5707963267948963 0.012632873265397596 1.5708"/>
+    <origin xyz="0 0.35 0.1"
+            rpy="0 3.14 0"/>
     <parent link="5DOF_V2-v1_Ledd1-v1"/>
     <child  link="5DOF_V2-v1_Ledd2-v1"/>
-    <axis xyz="-0.012633000000000004 -0.99992 -5.799401443819225e-33"/>
+    <axis xyz="0 0 1"/>
   </joint>
 
   <joint name="5DOF_V2-v1_Ledd-4-v1_Revolute-9" type="continuous">
-    <origin xyz="0.020000001123706285 0.039999999999984936 0.019999999181395153"
-            rpy="-3.1415926535897927 0.0126328732654071 -2.226143245893908e-15"/>
+    <origin xyz="-0.0 0 0.02"
+            rpy="0 0 0"/>
     <parent link="5DOF_V2-v1_Ledd-4-v1"/>
     <child  link="5DOF_V2-v1_Ledd5-v1"/>
-    <axis xyz="-1.7347234759758815e-18 -1.0 0.0"/>
+    <axis xyz="0 0 1.0"/>
   </joint>
 
   <joint name="5DOF_V2-v1_Ledd5-v1_Rigid-11" type="fixed">
-    <origin xyz="8.18604810604029e-10 1.1237057151447515e-09 1.3926637620897963e-14"
-            rpy="7.95274871898862e-16 2.5014215493744513e-14 1.5581634535294897"/>
+    <origin xyz="-0.012 0 0.1716"
+            rpy="1.5708 1.5708 0"/>
     <parent link="5DOF_V2-v1_Ledd5-v1"/>
     <child  link="5DOF_V2-v1_fryer-complete-v1"/>
   </joint>
 
 
   <joint name="5DOF_V2-v1_Ledd2-v1_Revolute-15" type="continuous">
-    <origin xyz="3.8774454111489834e-07 0.3299999999999883 0.07499999975316342"
+    <origin xyz="0 0.3 0.07"
             rpy="1.570796326794897 -0.012632873265408419 -3.1415926535897913"/>
     <parent link="5DOF_V2-v1_Ledd2-v1"/>
     <child  link="5DOF_V2-v1_Ledd-4-v1"/>
-    <axis xyz="0.012633 0.99992 2.3493747465131305e-32"/>
+    <axis xyz="0 1 0"/>
   </joint>
 
   <!-- ============================ -->
