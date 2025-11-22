@@ -30,14 +30,14 @@
       <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
       <geometry>
         <!-- bruk package:// i ROS 2 etter hvert -->
-        <mesh filename="$(find usv_package)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="base_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
 
     <collision name="base_link_collision">
       <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="base_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -125,13 +125,13 @@
     <visual name="5DOF_V2-v1_Base-v1_visual">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Base-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_Base-v1_collision">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Base-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -146,13 +146,13 @@
     <visual name="5DOF_V2-v1_Base_tube2-v1_visual">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base_tube2-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Base_tube2-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_Base_tube2-v1_collision">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base_tube2-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Base_tube2-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -167,13 +167,13 @@
     <visual name="5DOF_V2-v1_Base_tube-v1_visual">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base_tube-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Base_tube-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_Base_tube-v1_collision">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base_tube-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Base_tube-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -188,13 +188,13 @@
     <visual name="5DOF_V2-v1_Ledd1-v1_visual">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd1-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Ledd1-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_Ledd1-v1_collision">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd1-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Ledd1-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -209,13 +209,13 @@
     <visual name="5DOF_V2-v1_Ledd2-v1_visual">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd2-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Ledd2-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_Ledd2-v1_collision">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd2-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Ledd2-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -230,13 +230,13 @@
     <visual name="5DOF_V2-v1_Ledd-4-v1_visual">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd-4-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Ledd-4-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_Ledd-4-v1_collision">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd-4-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Ledd-4-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -251,13 +251,13 @@
     <visual name="5DOF_V2-v1_fryer-complete-v1_visual">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_fryer-complete-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_fryer-complete-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_fryer-complete-v1_collision">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_fryer-complete-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_fryer-complete-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -272,14 +272,14 @@
     <visual name="5DOF_V2-v1_Ledd5-v1_visual">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd5-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Ledd5-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
     <collision name="5DOF_V2-v1_Ledd5-v1_collision">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <!-- FIKSET: fjernet dobbel $(find usv_package)/ -->
-        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd5-v1.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="5DOF_V2-v1_Ledd5-v1.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
