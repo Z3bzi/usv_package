@@ -42,7 +42,7 @@ def generate_launch_description():
     )
 
     # 5) Prosesser xacro → URDF
-    xacro_file_path = os.path.join(get_package_share_directory(package_name), 'urdf', 'ele306baat_V2.urdf.xacro')
+    xacro_file_path = os.path.join(get_package_share_directory(package_name), 'urdf', 'ele306baat_V4.urdf.xacro')
     robot_description_raw = xacro.process_file(xacro_file_path).toxml()
 
     # 6) Robot state publisher
@@ -92,6 +92,21 @@ def generate_launch_description():
         output='screen'
     )
 
+    joint_state_broadcaster_spawner = Node(
+    package="controller_manager",
+    executable="spawner.py",
+    arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+    output="screen",
+    )
+
+    arm_controller_spawner = Node(
+    package="controller_manager",
+    executable="spawner.py",
+    arguments=["arm_controller", "--controller-manager", "/controller_manager"],
+    output="screen",
+    )
+
+
     items = [
         sim_time_arg,
         disable_model_db,
@@ -99,7 +114,9 @@ def generate_launch_description():
         node_robot_state_publisher,
         spawn_entity,
         mixer,
-        twist_gui
+        twist_gui,
+        joint_state_broadcaster_spawner,
+        arm_controller_spawner
     ]
     if gazebo_plugin_env:
         items.insert(1, gazebo_plugin_env)  # sett miljøvariabel tidlig
