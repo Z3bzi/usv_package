@@ -1,0 +1,441 @@
+<?xml version="1.0"?>
+<robot name="ele306baat" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Xacro-parametre (i meter og kg) -->
+  <xacro:property name="m" value="30"/>
+  <xacro:property name="a" value="1.0"/>  <!-- lengde -->
+  <xacro:property name="b" value="0.4"/>  <!-- bredde -->
+  <xacro:property name="c" value="0.2"/>  <!-- høyde -->
+  <xacro:property name="ox" value="0.5"/>  <!-- a/2 -->
+  <xacro:property name="oy" value="-0.2"/> <!-- b/2 -->
+  <xacro:property name="oz" value="-0.1"/> <!-- c/2 -->
+  <xacro:property name="y_off" value="0.22"/>  <!-- avstand sidelengs fra CoM (m) -->
+  <xacro:property name="thr_r" value="0.05"/>  <!-- radius på thruster-visual -->
+  <xacro:property name="thr_l" value="0.06"/>  <!-- lengde på thruster-visual -->
+  <xacro:property name="thr_m" value="0.001"/> <!-- liten masse -->
+
+  <!-- BÅTSKROG / HOVEDKROPP -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+      <mass value="${m}"/>
+      <inertia
+        ixx="${(1.0/12.0)*m*(b*b + c*c)}"
+        iyy="${(1.0/12.0)*m*(a*a + c*c)}"
+        izz="${(1.0/12.0)*m*(a*a + b*b)}"
+        ixy="0" iyz="0" ixz="0"/>
+    </inertial>
+
+    <visual name="base_link_visual">
+      <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+      <geometry>
+        <!-- bruk package:// i ROS 2 etter hvert -->
+        <mesh filename="$(find usv_package)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+
+    <collision name="base_link_collision">
+      <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- VENSTRE THRUSTER (y>0) -->
+  <link name="thr_left">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${thr_m}"/>
+      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
+      <geometry>
+        <cylinder radius="${thr_r}" length="${thr_l}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- HØYRE THRUSTER (y<0) -->
+  <link name="thr_right">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${thr_m}"/>
+      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.57079632679 0"/>
+      <geometry>
+        <cylinder radius="${thr_r}" length="${thr_l}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- VENSTRE: yaw rundt z, plassert ved (0, +y_off, -0.1) -->
+  <joint name="thr_left_yaw" type="revolute">
+    <parent link="base_link"/>
+    <child  link="thr_left"/>
+    <origin xyz="0 ${y_off} -0.08" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>                       <!-- yaw-akse -->
+    <limit lower="-1.5708" upper="1.5708" effort="15.0" velocity="2.5"/>
+    <dynamics damping="1" friction="10"/>
+  </joint>
+
+  <!-- HØYRE: yaw rundt z, plassert ved (0, -y_off, -0.1) -->
+  <joint name="thr_right_yaw" type="revolute">
+    <parent link="base_link"/>
+    <child  link="thr_right"/>
+    <origin xyz="0 ${-y_off} -0.08" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.5708" upper="1.5708" effort="15.0" velocity="2.5"/>
+    <dynamics damping="1" friction="10"/>
+  </joint>
+
+  <!-- ============================ -->
+  <!--  ROBOTARM-LINKER OG JOINTS  -->
+  <!-- ============================ -->
+
+  <link name="5DOF_V2-v1_Base-v1">
+    <inertial>
+      <origin xyz="-3.50785263573333e-17 3.2205047237486456e-17 0.029999999999999933" rpy="0.0 0.0 0.0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.0034217834483820206" iyy="0.0034217834483816966" izz="0.00462403168700253"
+               ixy="1.1526424346236517e-16" iyz="2.7533655757593897e-18" ixz="-2.7399403517079433e-17"/>
+    </inertial>
+    <visual name="5DOF_V2-v1_Base-v1_visual">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision name="5DOF_V2-v1_Base-v1_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="5DOF_V2-v1_Base_tube2-v1">
+    <inertial>
+      <origin xyz="-1.6654054514900177e-18 3.325072459910882e-17 0.03054122508269446" rpy="0.0 0.0 0.0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.0004542134596046459" iyy="0.00044058603181367347" izz="0.0002995690214890518"
+               ixy="1.0927572052527721e-17" iyz="-9.780555404766658e-21" ixz="-6.891596942663357e-18"/>
+    </inertial>
+    <visual name="5DOF_V2-v1_Base_tube2-v1_visual">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base_tube2-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision name="5DOF_V2-v1_Base_tube2-v1_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base_tube2-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="5DOF_V2-v1_Base_tube-v1">
+    <inertial>
+      <origin xyz="4.7248414473679183e-17 3.957337929572082e-17 0.057500000000007746" rpy="0.0 0.0 0.0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.0022304530623574763" iyy="0.002230453062356116" izz="0.0005539204625058387"
+               ixy="-5.66792012332329e-17" iyz="3.9400584574481047e-17" ixz="2.5480589387290446e-19"/>
+    </inertial>
+    <visual name="5DOF_V2-v1_Base_tube-v1_visual">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base_tube-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision name="5DOF_V2-v1_Base_tube-v1_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Base_tube-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="5DOF_V2-v1_Ledd1-v1">
+    <inertial>
+      <origin xyz="-6.753873604593077e-07 0.2134588694840161 0.025487981635571387" rpy="0.0 0.0 0.0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.11918586547638825" iyy="0.004785496154870996" izz="0.1195753968143904"
+               ixy="3.9887786443593526e-07" iyz="-0.0024238492062195094" ixz="-2.9928866193076637e-09"/>
+    </inertial>
+    <visual name="5DOF_V2-v1_Ledd1-v1_visual">
+      <origin xyz="0.0 -0.03 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd1-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision name="5DOF_V2-v1_Ledd1-v1_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd1-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="5DOF_V2-v1_Ledd2-v1">
+    <inertial>
+      <origin xyz="9.738045645997853e-09 0.1808883564974194 0.02553390149019094" rpy="0.0 0.0 0.0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.076854691499524" iyy="0.0036753264512904412" izz="0.07694224533843542"
+               ixy="-1.0873018443745157e-08" iyz="-0.0015209339212538377" ixz="-2.6955421273972656e-09"/>
+    </inertial>
+    <visual name="5DOF_V2-v1_Ledd2-v1_visual">
+      <origin xyz="0.0 -0.03 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd2-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision name="5DOF_V2-v1_Ledd2-v1_collision">
+      <origin xyz="0.0 -0.03 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd2-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="5DOF_V2-v1_Ledd-4-v1">
+    <inertial>
+      <origin xyz="0.020000000000004358 0.020000000000003616 0.017234320051566592" rpy="0.0 0.0 0.0"/>
+      <mass value="0.01"/>
+      <inertia ixx="9.937381668031846e-05" iyy="9.93738166803096e-05" izz="0.00011088625479222827"
+               ixy="1.2510862322193676e-18" iyz="-1.9775176354292115e-20" ixz="-1.1469673138770481e-17"/>
+    </inertial>
+    <visual name="5DOF_V2-v1_Ledd-4-v1_visual">
+      <origin xyz="-0.02 0.02 -0.02" rpy="1.5708 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd-4-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision name="5DOF_V2-v1_Ledd-4-v1_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="1.5708 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd-4-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="5DOF_V2-v1_fryer-complete-v1">
+    <inertial>
+      <origin xyz="0.18516803814723812 0.0074877264097060765 0.00021416620249091518" rpy="0.0 0.0 0.0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.0006142619467787169" iyy="0.010186938591218588" izz="0.010294427459442155"
+               ixy="-0.0012667326354611457" iyz="-2.2136922976051193e-07" ixz="2.2787122485625748e-05"/>
+    </inertial>
+    <visual name="5DOF_V2-v1_fryer-complete-v1_visual">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_fryer-complete-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision name="5DOF_V2-v1_fryer-complete-v1_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_fryer-complete-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="5DOF_V2-v1_Ledd5-v1">
+    <inertial>
+      <origin xyz="5.791883797658625e-17 1.9831390820599319e-16 0.02500000000000081" rpy="0.0 0.0 0.0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.00010758500113428109" iyy="0.00010758500113439714" izz="5.782447958594017e-05"
+               ixy="-1.2697870912289562e-17" iyz="-1.1350424613618553e-20" ixz="-1.3866654853379093e-17"/>
+    </inertial>
+    <visual name="5DOF_V2-v1_Ledd5-v1_visual">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd5-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision name="5DOF_V2-v1_Ledd5-v1_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <!-- FIKSET: fjernet dobbel $(find usv_package)/ -->
+        <mesh filename="$(find usv_package)/meshes/5DOF_V2-v1_Ledd5-v1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- KOBLING ARM ↔ BÅT -->
+  <joint name="arm_to_base" type="fixed">
+    <parent link="base_link"/>
+    <child  link="5DOF_V2-v1_Base-v1"/>
+    <!-- Velg monteringsposisjon på dekk. Juster xyz ved behov. -->
+    <origin xyz="-0.25 0.0 0.05" rpy="0 0 0"/>
+  </joint>
+
+  <!-- INTERNE LEDD I ARMEN (som i original-URDF) -->
+
+  <joint name="5DOF_V2-v1_Base-v1_Revolute-1" type="continuous">
+    <origin xyz="3.4449512753553793e-09 3.219265067855304e-09 0.05999999999999936"
+            rpy="2.8608031150340146e-17 1.088186942308888e-15 1.583429200060294"/>
+    <parent link="5DOF_V2-v1_Base-v1"/>
+    <child  link="5DOF_V2-v1_Base_tube2-v1"/>
+    <axis xyz="0 0 1.0"/>
+    <limit effort="15.0" velocity="2.5"/>
+    <dynamics damping="1" friction="0.1"/>
+  </joint>
+
+  <joint name="5DOF_V2-v1_Base_tube2-v1_Rigid-2" type="fixed">
+    <origin xyz="-0.04 0.0 0.08"
+            rpy="0 1.5708 0"/>
+    <parent link="5DOF_V2-v1_Base_tube2-v1"/>
+    <child  link="5DOF_V2-v1_Base_tube-v1"/>
+  </joint>
+
+  <joint name="5DOF_V2-v1_Base_tube-v1_Revolute-13" type="continuous">
+    <origin xyz="0. 0 0.12"
+            rpy="0 3.14 1.5708"/>
+    <parent link="5DOF_V2-v1_Base_tube-v1"/>
+    <child  link="5DOF_V2-v1_Ledd1-v1"/>
+    <axis xyz="0 0 1.5708"/>
+    <limit lower="-2" upper="1.6" effort="15.0" velocity="2.5"/>
+    <dynamics damping="1" friction="3"/>
+  </joint>
+
+  <joint name="5DOF_V2-v1_Ledd1-v1_Revolute-4" type="continuous">
+    <origin xyz="0 0.35 0.1"
+            rpy="0 3.14 0"/>
+    <parent link="5DOF_V2-v1_Ledd1-v1"/>
+    <child  link="5DOF_V2-v1_Ledd2-v1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="15.0" velocity="2.5"/>
+    <dynamics damping="1" friction="0.1"/>
+  </joint>
+
+  <joint name="5DOF_V2-v1_Ledd-4-v1_Revolute-9" type="continuous">
+    <origin xyz="-0.0 0 0.02"
+            rpy="0 0 0"/>
+    <parent link="5DOF_V2-v1_Ledd-4-v1"/>
+    <child  link="5DOF_V2-v1_Ledd5-v1"/>
+    <axis xyz="0 0 1.0"/>
+    <limit effort="1.0" velocity="2.5"/>
+    <dynamics damping="0" friction="0.1"/>
+  </joint>
+
+  <joint name="5DOF_V2-v1_Ledd5-v1_Rigid-11" type="fixed">
+    <origin xyz="-0.012 0 0.1716"
+            rpy="1.5708 1.5708 0"/>
+    <parent link="5DOF_V2-v1_Ledd5-v1"/>
+    <child  link="5DOF_V2-v1_fryer-complete-v1"/>
+  </joint>
+
+
+  <joint name="5DOF_V2-v1_Ledd2-v1_Revolute-15" type="continuous">
+    <origin xyz="0 0.3 0.07"
+            rpy="1.570796326794897 -0.012632873265408419 -3.1415926535897913"/>
+    <parent link="5DOF_V2-v1_Ledd2-v1"/>
+    <child  link="5DOF_V2-v1_Ledd-4-v1"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- ============================ -->
+  <!--         GAZEBO-OPPSETT       -->
+  <!-- ============================ -->
+
+  <!-- Gazebo-tillegg: la Gazebo finne plugin via GAZEBO_PLUGIN_PATH -->
+  <gazebo>
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+
+    <plugin name="buoyancy" filename="libbuoyancy_plugin.so">
+      <fluid_density>1000</fluid_density>
+      <surface_z>0.0</surface_z>
+      <link name="base_link">
+        <waterplane_area>0.4</waterplane_area>
+        <height>0.2</height>
+        <linear_damping>30.0</linear_damping>
+        <angular_damping>30.0</angular_damping>
+        <k_righting>50.0</k_righting>
+        <cob>
+          <x>0</x><y>0</y><z>0.13</z>
+        </cob>
+      </link>
+    </plugin>
+
+    <plugin name="thr_left_force" filename="libgazebo_ros_force.so">
+      <ros>
+        <namespace>/usv</namespace>
+        <remapping>gazebo_ros_force:=/usv/left_thrust</remapping>
+      </ros>
+      <link_name>thr_left</link_name>
+      <force_frame>link</force_frame>   <!-- kraft i thruster-linkens ramme -->
+    </plugin>
+
+    <plugin name="thr_right_force" filename="libgazebo_ros_force.so">
+      <ros>
+        <namespace>/usv</namespace>
+        <remapping>gazebo_ros_force:=/usv/right_thrust</remapping>
+      </ros>
+      <link_name>thr_right</link_name>
+      <force_frame>link</force_frame>
+    </plugin>
+
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find usv_package)/config/arm_ros2_control.yaml</parameters>
+    </plugin>
+
+  </gazebo>
+
+  <!-- ============================ -->
+  <!--        ros2_control          -->
+  <!-- ============================ -->
+
+  <ros2_control name="usv_hw" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+
+    <!-- Vi styrer yaw-posisjon på begge thrustere -->
+    <joint name="thr_left_yaw">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+      <state_interface   name="velocity"/>
+    </joint>
+    <joint name="thr_right_yaw">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+      <state_interface   name="velocity"/>
+    </joint>
+
+      <!-- ARM-LEDENE (posisjonsstyring) -->
+    <joint name="5DOF_V2-v1_Base-v1_Revolute-1">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+      <state_interface   name="velocity"/>
+    </joint>
+
+    <joint name="5DOF_V2-v1_Base_tube-v1_Revolute-13">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+      <state_interface   name="velocity"/>
+    </joint>
+
+    <joint name="5DOF_V2-v1_Ledd1-v1_Revolute-4">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+      <state_interface   name="velocity"/>
+    </joint>
+
+    <joint name="5DOF_V2-v1_Ledd2-v1_Revolute-15">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+      <state_interface   name="velocity"/>
+    </joint>
+
+    <joint name="5DOF_V2-v1_Ledd-4-v1_Revolute-9">
+      <command_interface name="position"/>
+      <state_interface   name="position"/>
+      <state_interface   name="velocity"/>
+    </joint>
+  </ros2_control>
+
+</robot>
