@@ -1,16 +1,16 @@
 import rclpy
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import WrenchStamped
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from tkinter import Tk, Scale, HORIZONTAL
 
 
 class TwistGui:
-    """Simple Tk GUI that publishes geometry_msgs/Twist on /cmd_vel."""
+    """Simple Tk GUI that publishes geometry_msgs/WrenchStamped on /cmd_wrench."""
 
     def __init__(self):
         rclpy.init()
         self.node = rclpy.create_node('twist_gui')
-        self.pub = self.node.create_publisher(Twist, '/cmd_vel', 10)
+        self.pub = self.node.create_publisher(WrenchStamped, '/cmd_wrench', 10)
         self.arm_pub = self.node.create_publisher(
             JointTrajectory,
             '/arm_controller/joint_trajectory',
@@ -18,7 +18,7 @@ class TwistGui:
         )
 
         self.root = Tk()
-        self.root.title('CmdVel GUI')
+        self.root.title('CmdWrench GUI')
 
         self.linear = Scale(
             self.root,
@@ -26,7 +26,7 @@ class TwistGui:
             to=5.0,
             resolution=0.01,
             orient=HORIZONTAL,
-            label='Linear X',
+            label='Force X',
             command=self.update_base,
         )
         self.angular = Scale(
@@ -35,7 +35,7 @@ class TwistGui:
             to=2.0,
             resolution=0.01,
             orient=HORIZONTAL,
-            label='Angular Z',
+            label='Torque Z',
             command=self.update_base,
         )
         self.linear.pack(fill='x')
@@ -64,10 +64,10 @@ class TwistGui:
             self.arm_scales.append(slider)
 
     def update_base(self, _):
-        twist = Twist()
-        twist.linear.x = self.linear.get()
-        twist.angular.z = self.angular.get()
-        self.pub.publish(twist)
+        msg = WrenchStamped()
+        msg.wrench.force.x = self.linear.get()
+        msg.wrench.torque.z = self.angular.get()
+        self.pub.publish(msg)
 
     def update_arm(self, _):
         traj = JointTrajectory()
