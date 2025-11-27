@@ -106,6 +106,13 @@ def generate_launch_description():
     output="screen",
     )
 
+    boat_matlab_bridge = Node(
+        package='usv_package',
+        executable='boat_matlab_bridge',
+        name='boat_matlab_bridge',
+        output='screen'
+    )
+
 
     items = [
         sim_time_arg,
@@ -116,7 +123,8 @@ def generate_launch_description():
         mixer,
         twist_gui,
         joint_state_broadcaster_spawner,
-        arm_controller_spawner
+        arm_controller_spawner,
+        boat_matlab_bridge
     ]
     if gazebo_plugin_env:
         items.insert(1, gazebo_plugin_env)  # sett miljøvariabel tidlig

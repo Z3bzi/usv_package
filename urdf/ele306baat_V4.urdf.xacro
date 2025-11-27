@@ -383,6 +383,18 @@
       <parameters>$(find usv_package)/config/arm_ros2_control.yaml</parameters>
     </plugin>
 
+    <!-- Odometry plugin -->
+    <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+      <ros>
+        <namespace>/usv</namespace>
+        <remapping>odom:=/odom</remapping>
+      </ros>
+      <frame_name>world</frame_name>
+      <body_name>base_link</body_name>
+      <update_rate>30.0</update_rate>
+      <gaussian_noise>0.0</gaussian_noise>
+    </plugin>
+
   </gazebo>
 
   <!-- ============================ -->

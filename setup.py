@@ -28,7 +28,7 @@ setup(
         'console_scripts': [
             'thruster_mixer = usv_package.thruster_mixer:main',
             'twist_gui = usv_package.twist_gui:main',
-            'matlab_bridge = usv_package.matlab_bridge:main',
+            'boat_matlab_bridge = usv_package.boat_matlab_bridge:main',
             ],
     },
 )
