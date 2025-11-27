@@ -1,6 +1,6 @@
 # USV with 5-DOF Arm: A ROS 2 Simulation Project
 
-This repository contains the source code for a semester project in the course **ELE306 - Kybernetiske Systemer** at the **Western Norway University of Applied Sciences (HVL)**.
+This repository contains the source code for a semester project in the course **ELE306 - Robotics** at the **Western Norway University of Applied Sciences (HVL)**.
 
 The project consists of a complete ROS 2 (Foxy) and Gazebo simulation of an Unmanned Surface Vehicle (USV) equipped with a 5-DOF robotic arm. It features independent control systems for both the vehicle's navigation and the arm's manipulation tasks.
 
