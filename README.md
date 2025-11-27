@@ -70,3 +70,7 @@ With the simulation running, you can use one of the MATLAB scripts to control th
 -   **To control the boat's path:** Open and run `simulate_boat_master_liveplots_current.m` in MATLAB.
 -   **To control the arm with a trajectory:** Open and run `control_arm_trajectory.m` in MATLAB.
 -   **To control the arm interactively:** Use the sliders in the `twist_gui` window that appears after launching the simulation.
+
+## Acknowledgements
+
+This project utilizes the [buoyancy_plugin](https://github.com/Z3bzi/buoyancy_plugin) for realistic USV hydrodynamics in Gazebo.
