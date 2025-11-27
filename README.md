@@ -17,7 +17,7 @@ The project consists of a complete ROS 2 (Foxy) and Gazebo simulation of an Unma
 
 ## System Architecture and Functionality
 
-![RQT Graph: ROS 2 Node and Topic Architecture](media/images/rosgraph1_usv.png)
+![RQT Graph: ROS 2 Node and Topic Architecture](media/images/RQT_graph.png)
 
 The robot's control system is divided into two main parts: the USV base and the robotic arm.
 
