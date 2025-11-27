@@ -38,6 +38,7 @@ The robotic arm can be controlled via two distinct methods, providing both preci
 For a detailed guide on using both arm control methods, see **`matlab_control_guide.md`**.
 
 ## Setup and Usage
+This project requires [buoyancy_plugin](https://github.com/Z3bzi/buoyancy_plugin) for realistic USV hydrodynamics in Gazebo.
 
 ### 1. Build the Workspace
 
@@ -70,7 +71,3 @@ With the simulation running, you can use one of the MATLAB scripts to control th
 -   **To control the boat's path:** Open and run `simulate_boat_master_liveplots_current.m` in MATLAB.
 -   **To control the arm with a trajectory:** Open and run `control_arm_trajectory.m` in MATLAB.
 -   **To control the arm interactively:** Use the sliders in the `twist_gui` window that appears after launching the simulation.
-
-## Acknowledgements
-
-This project utilizes the [buoyancy_plugin](https://github.com/Z3bzi/buoyancy_plugin) for realistic USV hydrodynamics in Gazebo.
