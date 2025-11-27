@@ -1,78 +1,103 @@
+# MATLAB Control Guide for the USV Robot Arm
 
-# Controlling the USV Arm from MATLAB
+This guide explains the current, working methods for controlling the 5-DOF robot arm in the simulation.
 
-This guide explains how to control the robot arm on the USV using MATLAB.
+## Method 1: Trajectory Control with MATLAB Action Client
 
-A `matlab_bridge` ROS2 node has been created to simplify the control process. You only need to publish an array of joint positions to the `/matlab/joint_goals` topic.
+This is the primary and most robust method for sending complex, multi-point trajectories to the arm. It uses a MATLAB script that acts as a ROS 2 "action client" to send a goal to the arm's controller.
 
-## 1. Prerequisites
+### How it Works
+The script sends a `FollowJointTrajectory` goal to the `/arm_controller/follow_joint_trajectory` action server. This goal contains one or more trajectory points, each with a position for all 5 joints and a time-from-start for the arm to reach that point.
 
-- MATLAB with the ROS Toolbox installed.
-- A working ROS2 installation with the `usv_package` built and sourced.
-- Your ROS2 and MATLAB environments must be configured to communicate. This usually means ensuring the `ROS_DOMAIN_ID` environment variable is set to the same value in both your ROS2 terminal and in your MATLAB session.
-
-## 2. MATLAB Control Script
-
-The following MATLAB script will send a goal to the arm to move it to a specified set of joint angles.
+### The Script (`control_arm_trajectory.m`)
+This script will move the arm through a pre-defined 2-point trajectory.
 
 ```matlab
-% Connect to the ROS2 network
-ros2 node;
-clear all;
+% MATLAB script for sending a trajectory to the USV Robot Arm
 clc;
+clear;
+close all;
+fprintf('Starting Robot Arm Trajectory Controller...\n');
 
-% Make sure your ROS_DOMAIN_ID is set correctly, e.g., setenv('ROS_DOMAIN_ID', '30')
+%% ---------- 1. ROS 2 SETUP ----------
+% Set ROS environment variables
+setenv("ROS_DOMAIN_ID", "30");
+setenv("RMW_IMPLEMENTATION", "rmw_fastrtps_cpp");
 
-% Create a publisher for the /matlab/joint_goals topic
-publisher = ros2publisher('/matlab/joint_goals', 'std_msgs/Float64MultiArray');
+% Create a ROS 2 node
+clear node; % Clear any previous nodes
+node = ros2node("matlab_trajectory_client");
 
-% Wait for a subscriber to connect
-% This ensures the matlab_bridge node is ready to receive messages
-disp('Waiting for matlab_bridge subscriber...');
-while (publisher.NumSubscribers == 0)
-    pause(1); % Wait for 1 second before checking again
+% Create an Action Client for the arm controller
+action_name = '/arm_controller/follow_joint_trajectory';
+action_client = ros2actionclient(node, action_name, 'control_msgs/FollowJointTrajectory');
+fprintf("Action client created for '%s'.\n", action_name);
+
+
+%% ---------- 2. WAIT FOR ACTION SERVER ----------
+fprintf("Waiting for the action server to be available...\n");
+if ~waitForServer(action_client, 'Timeout', 15)
+    error("Action server '%s' not available after 15 seconds. Is the simulation running?", action_name);
 end
-disp('matlab_bridge subscriber connected.');
+fprintf("Action server is available.\n");
 
-% Create a message
-msg = ros2message(publisher);
 
-% Set the desired joint positions (in radians)
-% IMPORTANT: Change these values to your desired target positions
-% The order of joints is:
-% 1. '5DOF_V2-v1_Base-v1_Revolute-1'
-% 2. '5DOF_V2-v1_Base_tube-v1_Revolute-13'
-% 3. '5DOF_V2-v1_Ledd1-v1_Revolute-4'
-% 4. '5DOF_V2-v1_Ledd2-v1_Revolute-15'
-% 5. '5DOF_V2-v1_Ledd-4-v1_Revolute-9'
-msg.data = [0.5, 0.2, 0.5, -0.5, 0.3]; % Example values
+%% ---------- 3. BUILD THE TRAJECTORY GOAL ----------
+% Create a goal message
+goal_msg = ros2message(action_client);
 
-% Send the message
-disp('Sending joint goals to the arm...');
-send(publisher, msg);
+% --- Define the joint names (must match controller config) ---
+goal_msg.trajectory.joint_names = { ...
+    '5DOF_V2-v1_Base-v1_Revolute-1', ...
+    '5DOF_V2-v1_Base_tube-v1_Revolute-13', ...
+    '5DOF_V2-v1_Ledd1-v1_Revolute-4', ...
+    '5DOF_V2-v1_Ledd2-v1_Revolute-15', ...
+    '5DOF_V2-v1_Ledd-4-v1_Revolute-9' ...
+};
+
+% --- Create trajectory points ---
+% First point
+traj_point_1 = ros2message('trajectory_msgs/JointTrajectoryPoint');
+traj_point_1.positions = [0.2, 0.1, 0.2, -0.2, 0.1];
+traj_point_1.velocities = []; % Explicitly set to empty
+traj_point_1.accelerations = []; % Explicitly set to empty
+traj_point_1.effort = []; % Explicitly set to empty
+traj_point_1.time_from_start.sec = int32(2); % Reach this point in 2 seconds
+
+% Second point (final goal)
+traj_point_2 = ros2message('trajectory_msgs/JointTrajectoryPoint');
+traj_point_2.positions = [0.5, 0.2, 0.5, -0.5, 0.3];
+traj_point_2.velocities = []; % Explicitly set to empty
+traj_point_2.accelerations = []; % Explicitly set to empty
+traj_point_2.effort = []; % Explicitly set to empty
+traj_point_2.time_from_start.sec = int32(5); % Reach this point in 5 seconds
+
+% --- Add the points to the trajectory ---
+goal_msg.trajectory.points = [traj_point_1; traj_point_2];
+
+
+%% ---------- 4. SEND THE GOAL ----------
+fprintf("Sending trajectory goal to the arm controller...\n");
+sendGoal(action_client, goal_msg);
+fprintf("Trajectory goal sent. Check Gazebo.\n");
 
 ```
 
-## 3. How to Use
+## Method 2: Interactive Control & Waypoint Generation
 
-1.  **Build and source the workspace:** The new `matlab_bridge` node has been added, so you need to rebuild your ROS2 workspace.
-    ```bash
-    cd /home/rocotics/ros2_ws
-    colcon build --packages-select usv_package
-    source install/setup.bash
-    ```
-2.  **Launch the simulation:** In your ROS2 terminal, launch the USV simulation:
-    ```bash
-    ros2 launch usv_package full_Launch.launch.py
-    ```
-    This will now also start the `matlab_bridge` node.
-3.  **Open MATLAB:** Start MATLAB and make sure the ROS Toolbox is installed.
-4.  **Set ROS_DOMAIN_ID:** In the MATLAB command window, set the `ROS_DOMAIN_ID` to match your ROS2 setup. For example:
-    ```matlab
-    setenv('ROS_DOMAIN_ID', '30')
-    ```
-5.  **Run the script:** Copy the MATLAB script above into a new `.m` file (e.g., `control_arm_simple.m`) or run it directly in the MATLAB command window.
-6.  **Modify the script:** Change the `msg.data` array to the desired joint angles for your application.
+For interactively finding desired arm positions, you can use the `twist_gui` that launches with the simulation.
 
-This will send the command to the robot arm, and you should see it move in the Gazebo simulation.
+### How it Works
+The GUI has sliders for each arm joint. Moving a slider sends a simple, single-point trajectory to the arm controller, allowing you to "jog" the arm into position.
 
+### Generating Waypoints for MATLAB
+The GUI provides a simple workflow for creating trajectories:
+
+1.  **Launch the Simulation:** The `twist_gui` window will appear automatically.
+2.  **Position the Arm:** Use the 5 arm sliders in the GUI to move the arm to a desired waypoint.
+3.  **Save the Position:** Click the **"Save Arm Position"** button. The joint values will be formatted into a MATLAB matrix row and will appear in the text box.
+4.  **Repeat:** Move the arm to the next desired waypoint and click "Save Arm Position" again. A new row will be added to the matrix.
+5.  **Clear (Optional):** If you want to start a new sequence, click the **"Clear Waypoints"** button.
+6.  **Copy to MATLAB:** Once you have defined all your waypoints, you can copy the `waypoints = [...];` matrix from the GUI's text box and paste it directly into a MATLAB script to build a complex trajectory.
+
+```

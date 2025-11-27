@@ -72,7 +72,7 @@
     </collision>
   </link>
 
-  <!-- VENSTRE: yaw rundt z, plassert ved (0, +y_off, -0.1) -->
+  <!-- LEFT: yaw around z, placed at (0, +y_off, -0.1) -->
   <joint name="thr_left_yaw" type="revolute">
     <parent link="base_link"/>
     <child  link="thr_left"/>
@@ -82,7 +82,7 @@
     <dynamics damping="1" friction="10"/>
   </joint>
 
-  <!-- HØYRE: yaw rundt z, plassert ved (0, -y_off, -0.1) -->
+  <!-- RIGHT: yaw around z, placed at (0, -y_off, -0.1) -->
   <joint name="thr_right_yaw" type="revolute">
     <parent link="base_link"/>
     <child  link="thr_right"/>
@@ -93,8 +93,11 @@
   </joint>
 
   <!-- ============================ -->
-  <!--  ROBOTARM-LINKER OG JOINTS  -->
+  <!--   ROBOT ARM LINKS & JOINTS   -->
   <!-- ============================ -->
+  <!-- NOTE: The link and joint origins for the arm were likely auto-generated
+       from a CAD model. They are very sensitive to change. Debugging kinematic
+       issues often requires careful, incremental adjustments to these values. -->
 
   <link name="5DOF_V2-v1_Base-v1">
     <inertial>
@@ -265,15 +268,15 @@
     </collision>
   </link>
 
-  <!-- KOBLING ARM ↔ BÅT -->
+  <!-- ARM to BOAT connection -->
   <joint name="arm_to_base" type="fixed">
     <parent link="base_link"/>
     <child  link="5DOF_V2-v1_Base-v1"/>
-    <!-- Velg monteringsposisjon på dekk. Juster xyz ved behov. -->
+    <!-- Choose mounting position on the deck. Adjust xyz as needed. -->
     <origin xyz="-0.25 0.0 0.05" rpy="0 0 0"/>
   </joint>
 
-  <!-- INTERNE LEDD I ARMEN (som i original-URDF) -->
+  <!-- INTERNAL ARM JOINTS (as in original URDF) -->
 
   <joint name="5DOF_V2-v1_Base-v1_Revolute-1" type="continuous">
     <origin xyz="3.4449512753553793e-09 3.219265067855304e-09 0.05999999999999936"
@@ -292,6 +295,9 @@
     <child  link="5DOF_V2-v1_Base_tube-v1"/>
   </joint>
 
+  <!-- Revolute-13: Connects the main vertical tube to the first 'elbow' link.
+       WARNING: The 'rpy' values here are complex and likely auto-generated.
+       Incorrect values can easily misalign the rest of the arm. -->
   <joint name="5DOF_V2-v1_Base_tube-v1_Revolute-13" type="continuous">
     <origin xyz="0. 0 0.12"
             rpy="0 3.14 1.5708"/>
@@ -342,7 +348,7 @@
   <!--         GAZEBO-OPPSETT       -->
   <!-- ============================ -->
 
-  <!-- Gazebo-tillegg: la Gazebo finne plugin via GAZEBO_PLUGIN_PATH -->
+  <!-- Gazebo plugins: Allow Gazebo to find plugins via GAZEBO_PLUGIN_PATH -->
   <gazebo>
     <disableFixedJointLumping>true</disableFixedJointLumping>
 
@@ -361,15 +367,15 @@
       </link>
     </plugin>
 
+    <!-- Plugins to apply force to thruster links for USV propulsion -->
     <plugin name="thr_left_force" filename="libgazebo_ros_force.so">
       <ros>
         <namespace>/usv</namespace>
         <remapping>gazebo_ros_force:=/usv/left_thrust</remapping>
       </ros>
       <link_name>thr_left</link_name>
-      <force_frame>link</force_frame>   <!-- kraft i thruster-linkens ramme -->
+      <force_frame>link</force_frame>   <!-- Force in the thruster link's frame -->
     </plugin>
-
     <plugin name="thr_right_force" filename="libgazebo_ros_force.so">
       <ros>
         <namespace>/usv</namespace>
@@ -379,14 +385,14 @@
       <force_frame>link</force_frame>
     </plugin>
 
+    <!-- ROS 2 Control plugin for hardware abstraction and controller management -->
     <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
       <parameters>$(find usv_package)/config/arm_ros2_control.yaml</parameters>
     </plugin>
 
-    <!-- Odometry plugin -->
+    <!-- Odometry plugin to publish ground truth USV position -->
     <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
       <ros>
-        <namespace>/usv</namespace>
         <remapping>odom:=/odom</remapping>
       </ros>
       <frame_name>world</frame_name>
@@ -398,7 +404,7 @@
   </gazebo>
 
   <!-- ============================ -->
-  <!--        ros2_control          -->
+  <!--        ROS 2 CONTROL         -->
   <!-- ============================ -->
 
   <ros2_control name="usv_hw" type="system">
@@ -406,7 +412,7 @@
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
     </hardware>
 
-    <!-- Vi styrer yaw-posisjon på begge thrustere -->
+    <!-- Control of thruster yaw positions -->
     <joint name="thr_left_yaw">
       <command_interface name="position"/>
       <state_interface   name="position"/>
