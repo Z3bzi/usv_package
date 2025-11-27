@@ -297,7 +297,7 @@
             rpy="0 3.14 1.5708"/>
     <parent link="5DOF_V2-v1_Base_tube-v1"/>
     <child  link="5DOF_V2-v1_Ledd1-v1"/>
-    <axis xyz="0 0 1.5708"/>
+    <axis xyz="0 0 1"/>
     <limit lower="-2" upper="1.6" effort="15.0" velocity="2.5"/>
     <dynamics damping="1" friction="3"/>
   </joint>
@@ -331,7 +331,7 @@
 
 
   <joint name="5DOF_V2-v1_Ledd2-v1_Revolute-15" type="continuous">
-    <origin xyz="0 0.3 0.07"
+    <origin xyz="0 0.3 0.08"
             rpy="1.570796326794897 -0.012632873265408419 -3.1415926535897913"/>
     <parent link="5DOF_V2-v1_Ledd2-v1"/>
     <child  link="5DOF_V2-v1_Ledd-4-v1"/>
