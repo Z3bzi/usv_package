@@ -278,7 +278,7 @@
 
   <!-- INTERNAL ARM JOINTS (as in original URDF) -->
 
-  <joint name="5DOF_V2-v1_Base-v1_Revolute-1" type="continuous">
+  <joint name="base_rotate" type="continuous">
     <origin xyz="3.4449512753553793e-09 3.219265067855304e-09 0.05999999999999936"
             rpy="2.8608031150340146e-17 1.088186942308888e-15 1.583429200060294"/>
     <parent link="5DOF_V2-v1_Base-v1"/>
@@ -298,7 +298,7 @@
   <!-- Revolute-13: Connects the main vertical tube to the first 'elbow' link.
        WARNING: The 'rpy' values here are complex and likely auto-generated.
        Incorrect values can easily misalign the rest of the arm. -->
-  <joint name="5DOF_V2-v1_Base_tube-v1_Revolute-13" type="continuous">
+  <joint name="shoulder" type="continuous">
     <origin xyz="0. 0 0.12"
             rpy="0 3.14 1.5708"/>
     <parent link="5DOF_V2-v1_Base_tube-v1"/>
@@ -308,7 +308,7 @@
     <dynamics damping="1" friction="3"/>
   </joint>
 
-  <joint name="5DOF_V2-v1_Ledd1-v1_Revolute-4" type="continuous">
+  <joint name="elbow" type="continuous">
     <origin xyz="0 0.35 0.1"
             rpy="0 3.14 0"/>
     <parent link="5DOF_V2-v1_Ledd1-v1"/>
@@ -318,7 +318,7 @@
     <dynamics damping="1" friction="0.1"/>
   </joint>
 
-  <joint name="5DOF_V2-v1_Ledd-4-v1_Revolute-9" type="continuous">
+  <joint name="tool" type="continuous">
     <origin xyz="-0.0 0 0.02"
             rpy="0 0 0"/>
     <parent link="5DOF_V2-v1_Ledd-4-v1"/>
@@ -336,7 +336,7 @@
   </joint>
 
 
-  <joint name="5DOF_V2-v1_Ledd2-v1_Revolute-15" type="continuous">
+  <joint name="wrist" type="continuous">
     <origin xyz="0 0.3 0.08"
             rpy="1.570796326794897 -0.012632873265408419 -3.1415926535897913"/>
     <parent link="5DOF_V2-v1_Ledd2-v1"/>
@@ -425,31 +425,31 @@
     </joint>
 
       <!-- ARM-LEDENE (posisjonsstyring) -->
-    <joint name="5DOF_V2-v1_Base-v1_Revolute-1">
+    <joint name="base_rotate">
       <command_interface name="position"/>
       <state_interface   name="position"/>
       <state_interface   name="velocity"/>
     </joint>
 
-    <joint name="5DOF_V2-v1_Base_tube-v1_Revolute-13">
+    <joint name="shoulder">
       <command_interface name="position"/>
       <state_interface   name="position"/>
       <state_interface   name="velocity"/>
     </joint>
 
-    <joint name="5DOF_V2-v1_Ledd1-v1_Revolute-4">
+    <joint name="elbow">
       <command_interface name="position"/>
       <state_interface   name="position"/>
       <state_interface   name="velocity"/>
     </joint>
 
-    <joint name="5DOF_V2-v1_Ledd2-v1_Revolute-15">
+    <joint name="wrist">
       <command_interface name="position"/>
       <state_interface   name="position"/>
       <state_interface   name="velocity"/>
     </joint>
 
-    <joint name="5DOF_V2-v1_Ledd-4-v1_Revolute-9">
+    <joint name="tool">
       <command_interface name="position"/>
       <state_interface   name="position"/>
       <state_interface   name="velocity"/>

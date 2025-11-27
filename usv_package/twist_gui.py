@@ -47,11 +47,11 @@ class TwistGui:
 
         # Arm joint sliders (values in radians)
         self.arm_joints = [
-            ('5DOF_V2-v1_Base-v1_Revolute-1', (-3.14, 3.14)),
-            ('5DOF_V2-v1_Base_tube-v1_Revolute-13', (-2.0, 1.6)),
-            ('5DOF_V2-v1_Ledd1-v1_Revolute-4', (-3.14, 3.14)),
-            ('5DOF_V2-v1_Ledd2-v1_Revolute-15', (-3.14, 3.14)),
-            ('5DOF_V2-v1_Ledd-4-v1_Revolute-9', (-3.14, 3.14)),
+            ('base_rotate', (-3.14, 3.14)),
+            ('shoulder', (-2.0, 1.6)),
+            ('elbow', (-3.14, 3.14)),
+            ('wrist', (-3.14, 3.14)),
+            ('tool', (-3.14, 3.14)),
         ]
         self.arm_scales = []
         for joint_name, (lo, hi) in self.arm_joints:
