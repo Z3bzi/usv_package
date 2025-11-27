@@ -21,7 +21,7 @@ The project consists of a complete ROS 2 (Foxy) and Gazebo simulation of an Unma
 
 The robot's control system is divided into two main parts: the USV base and the robotic arm.
 
-### USV (Boat) Control
+### USV Control
 
 The USV's navigation is handled by an external MATLAB script that performs autonomous path-following.
 
