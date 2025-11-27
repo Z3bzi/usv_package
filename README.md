@@ -27,7 +27,7 @@ The USV's navigation is handled by an external MATLAB script that performs auton
 
 -   **State Feedback:** A Gazebo plugin publishes the boat's ground-truth position and orientation to the `/odom` topic. The `boat_matlab_bridge` node subscribes to this data and republishes it onto the `/matlab/odom` topic for the MATLAB controller.
 -   **Command Flow:** The MATLAB script calculates the required throttle (force) and turn (torque) and publishes them as a `geometry_msgs/WrenchStamped` message to `/matlab/cmd_wrench`. The `boat_matlab_bridge` forwards this message to the `/cmd_wrench` topic, which is read by the `thruster_mixer` node. The mixer then converts these high-level commands into individual forces for the left and right thrusters in the simulation.
-
+![Steering example](media/video/USV_SnakeDemo.mp4)
 ### Robot Arm Control
 
 The robotic arm can be controlled via two distinct methods, providing both precision and ease of use.
