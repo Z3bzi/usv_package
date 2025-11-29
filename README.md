@@ -38,7 +38,7 @@ The robotic arm can be controlled via two distinct methods, providing both preci
 For a detailed guide on using both arm control methods, see **`matlab_control_guide.md`**.
 
 ## Setup and Usage
-This project requires [buoyancy_plugin](https://github.com/Z3bzi/buoyancy_plugin) for realistic USV hydrodynamics in Gazebo.
+This project requires [buoyancy_plugin](https://github.com/Z3bzi/buoyancy_plugin) for simulated hydrodynamics in Gazebo.
 
 ### 1. Build the Workspace
 
