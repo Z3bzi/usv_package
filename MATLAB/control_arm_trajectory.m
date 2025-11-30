@@ -1,5 +1,4 @@
 % MATLAB script for sending a trajectory to the USV Robot Arm
-% This script was refactored to use a loop for waypoint generation.
 clc;
 clear;
 close all;
